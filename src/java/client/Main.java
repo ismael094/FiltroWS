@@ -21,8 +21,8 @@ import org.json.JSONObject;
  * @author entrar
  */
 public class Main  {
-    public static List<Book> main() throws IOException {
-        URL url = new URL("http://openlibrary.org/search.json?q=the+lord+of+the+rings");
+    public static List<Book> main(String key,String name) throws IOException {
+        URL url = new URL("http://openlibrary.org/search.json?"+key+"="+name+"&limit=50");
         URLConnection conn = url.openConnection(); //conexión HTTP
         BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
         String res = "";

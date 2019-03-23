@@ -18,6 +18,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.core.MediaType;
 
 /**
@@ -42,10 +43,11 @@ public class Filtro {
      * @return an instance of java.lang.String
      */
     @GET
+    @Path("{key}, {nombre}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getJson() {
+    public String getJson(@PathParam("key") String key, @PathParam("nombre") String nombre) {
         try {
-            List<Book> tmp = Main.main();
+            List<Book> tmp = Main.main(key,nombre.replace(' ', '+'));
             String res = "{ \"books\" : [";
             for (Book book : tmp) {
                 res+="{ \"title\" : \""+book.getTitle()+"\","
@@ -60,6 +62,14 @@ public class Filtro {
             Logger.getLogger(Filtro.class.getName()).log(Level.SEVERE, null, ex);
         }
         return "{}";
+    }
+    
+    @GET
+    @Path("Novedades")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getNovedades() {
+        
+        return "{jj}";
     }
 
     /**
