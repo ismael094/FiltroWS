@@ -15,6 +15,7 @@ public class Book {
     String oclc = "";
     String author_key = "";
     String coverUrl = "";
+    String subject = "";
 
     public String getTitle() {
         return title;
