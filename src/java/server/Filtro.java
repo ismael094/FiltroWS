@@ -56,7 +56,7 @@ public class Filtro {
                     + "\"cover\" : \""+book.getCoverUrl()+"\""
                     + "},";
             }
-            res = res.substring(0, res.length()-1)+"]";
+            res = res.substring(0, res.length()-1)+"]}";
             return res;
         } catch (Exception ex) {
             Logger.getLogger(Filtro.class.getName()).log(Level.SEVERE, null, ex);
