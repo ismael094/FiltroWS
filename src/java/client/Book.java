@@ -16,6 +16,27 @@ public class Book {
     String author_key = "";
     String coverUrl = "";
     String subject = "";
+    String publish_year = "";
+    String isbn = "";
+    String publisher = "";
+
+    public String getSubject() {
+        return subject;
+    }
+
+    public String getPublish_year() {
+        return publish_year;
+    }
+
+    public String getIsbn() {
+        return isbn;
+    }
+
+    public String getPublisher() {
+        return publisher;
+    }
+    
+    
 
     public String getTitle() {
         return title;
@@ -36,6 +57,28 @@ public class Book {
     public String getCoverUrl() {
         return coverUrl;
     }
+
+    public void setCoverUrl(String coverUrl) {
+        this.coverUrl = coverUrl;
+    }
+
+    public void setSubject(String subject) {
+        this.subject = subject;
+    }
+
+    public void setPublish_year(String publish_year) {
+        this.publish_year = publish_year;
+    }
+
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
+    }
+
+    public void setPublisher(String publisher) {
+        this.publisher = publisher;
+    }
+    
+    
     
     public void setTitle(String title) {
         this.title = title;
