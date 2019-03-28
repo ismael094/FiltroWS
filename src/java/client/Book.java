@@ -13,10 +13,9 @@ public class Book {
     String title = "";
     String author_name = "";
     String oclc = "";
-    String author_key = "";
     String coverUrl = "";
     String subject = "";
-    String publish_year = "";
+    int publish_year = 0;
     String isbn = "";
     String publisher = "";
 
@@ -24,7 +23,7 @@ public class Book {
         return subject;
     }
 
-    public String getPublish_year() {
+    public int getPublish_year() {
         return publish_year;
     }
 
@@ -49,10 +48,6 @@ public class Book {
     public String getOclc() {
         return oclc;
     }
-
-    public String getAuthor_key() {
-        return author_key;
-    }
     
     public String getCoverUrl() {
         return coverUrl;
@@ -66,12 +61,13 @@ public class Book {
         this.subject = subject;
     }
 
-    public void setPublish_year(String publish_year) {
+    public void setPublish_year(int publish_year) {
         this.publish_year = publish_year;
     }
 
     public void setIsbn(String isbn) {
         this.isbn = isbn;
+        this.coverUrl = "http://covers.openlibrary.org/b/isbn/"+isbn+"-L.jpg";
     }
 
     public void setPublisher(String publisher) {
@@ -90,10 +86,5 @@ public class Book {
 
     public void setOclc(String oclc) {
         this.oclc = oclc;
-        this.coverUrl = "http://covers.openlibrary.org/b/oclc/"+oclc+"-L.jpg";
-    }
-
-    public void setAuthor_key(String author_key) {
-        this.author_key = author_key;
     }
 }

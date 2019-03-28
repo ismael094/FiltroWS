@@ -7,6 +7,7 @@ package server;
 
 import client.Book;
 import client.Main;
+import com.google.gson.Gson;
 import java.io.IOException;
 import java.util.List;
 import java.util.logging.Level;
@@ -43,25 +44,22 @@ public class Filtro {
      * @return an instance of java.lang.String
      */
     @GET
-    @Path("{key}, {nombre}")
+    @Path("{key}, {nombre}, {page}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getJson(@PathParam("key") String key, @PathParam("nombre") String nombre) {
+    public String getJson(@PathParam("key") String key, @PathParam("nombre") String nombre, @PathParam("page") int page) {
         try {
-            List<Book> tmp = Main.main(key,nombre.replace(' ', '+'));
+            List<Book> tmp = Main.main(key,nombre.replace(' ', '+'),page);
+            Gson g = new Gson();
             String res = "{ \"books\" : [";
             for (Book book : tmp) {
-                res+="{ \"title\" : \""+book.getTitle()+"\","
-                    + "\"author_name\" : \""+book.getAuthor_name()+"\","
-                    + "\"oclc\" : \""+book.getOclc()+"\","
-                    + "\"cover\" : \""+book.getCoverUrl()+"\""
-                    + "},";
+                res+=g.toJson(book)+",";
             }
             res = res.substring(0, res.length()-1)+"]}";
             return res;
         } catch (Exception ex) {
             Logger.getLogger(Filtro.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return "{}";
+        return "{\"books\" : [{}]}";
     }
     
     @GET
