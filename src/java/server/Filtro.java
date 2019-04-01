@@ -5,7 +5,7 @@
  */
 package server;
 
-import client.Book;
+import client.Libros;
 import client.Main;
 import com.google.gson.Gson;
 import java.io.IOException;
@@ -48,18 +48,23 @@ public class Filtro {
     @Produces(MediaType.APPLICATION_JSON)
     public String getJson(@PathParam("key") String key, @PathParam("nombre") String nombre, @PathParam("page") int page) {
         try {
-            List<Book> tmp = Main.main(key,nombre.replace(' ', '+'),page);
+            List<Libros> tmp = Main.main(key,nombre.replace(' ', '+'),page);
             Gson g = new Gson();
-            String res = "{ \"books\" : [";
-            for (Book book : tmp) {
-                res+=g.toJson(book)+",";
+            String res = "{\"num\" : " + Main.num+ ", \"books\" : [";
+            if (tmp.size() > 0) {
+                for (Libros book :  tmp) {
+                    res+=g.toJson(book)+",";
+                } 
+            } else {
+                return res+"]}";
             }
+            
             res = res.substring(0, res.length()-1)+"]}";
             return res;
         } catch (Exception ex) {
             Logger.getLogger(Filtro.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return "{\"books\" : [{}]}";
+        return "{\"num\" : 0, \"books\" : []}";
     }
     
     @GET

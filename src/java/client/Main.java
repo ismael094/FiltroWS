@@ -21,8 +21,10 @@ import org.json.JSONObject;
  * @author entrar
  */
 public class Main  {
-    public static List<Book> main(String key,String name, int page) throws IOException {
-        String URL = "http://openlibrary.org/search.json?"+key+"="+name+"&limit=15";
+    public static int num;
+    
+    public static List<Libros> main(String key,String name, int page) throws IOException {
+        String URL = "http://openlibrary.org/search.json?"+key+"="+name+"&limit=10";
         if (page > 0) 
             URL+="&page="+page;
         
@@ -37,7 +39,8 @@ public class Main  {
         rd.close();
         JSONObject obj = new JSONObject(res);
         JSONArray rest = obj.getJSONArray("docs");
-        List<Book> list = new ArrayList();
+        Main.num = obj.getInt("num_found");
+        List<Libros> list = new ArrayList();
         
         int len = rest.length();
         if (len > 10)
@@ -47,16 +50,14 @@ public class Main  {
             JSONObject book = rest.getJSONObject(i);
             if (book == null || book.equals(""))
                 continue;
-            Book tmp = new Book();
+            Libros tmp = new Libros();
             if (book.has("author_name"))
-                tmp.setAuthor_name(book.getJSONArray("author_name").getString(0));
+                tmp.setAuthorName(book.getJSONArray("author_name").getString(0));
             if (book.has("title"))
                 tmp.setTitle(book.getString("title"));
             if (book.has("publish_year")){
-                tmp.setPublish_year(Integer.parseInt(book.getJSONArray("publish_year").optString(0)));
+                tmp.setPublishYear(Integer.parseInt(book.getJSONArray("publish_year").optString(0)));
             }
-                
-                
             if (book.has("subject"))
                 tmp.setSubject(book.getJSONArray("subject").getString(0));
             if (book.has("publisher"))
@@ -66,7 +67,6 @@ public class Main  {
             if (book.has("isbn")) {
                 tmp.setIsbn(book.getJSONArray("isbn").getString(0));
             } else {
-                len++;
                 continue;
             }
             list.add(tmp);
